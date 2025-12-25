@@ -1,7 +1,6 @@
 import { Points, PointMaterial } from '@react-three/drei'
 import { useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
-import * as THREE from 'three'
 
 export const Snowfall = () => {
   const ref = useRef<any>()
