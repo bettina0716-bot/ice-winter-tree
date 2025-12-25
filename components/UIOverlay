@@ -8,7 +8,7 @@ export const UIOverlay = () => {
   const toggleAudio = () => {
     if (audioRef.current) {
       if (muted) {
-        audioRef.current.play()
+        audioRef.current.play().catch(() => {})
       } else {
         audioRef.current.pause()
       }
@@ -18,48 +18,21 @@ export const UIOverlay = () => {
 
   return (
     <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 100 }}>
-      {/* 音乐播放器 */}
       <audio ref={audioRef} src="/audio.mp3" loop />
-
-      {/* 右上角音量开关 */}
       <div style={{ position: 'absolute', top: '20px', right: '20px', pointerEvents: 'auto' }}>
         <button 
           onClick={toggleAudio}
-          style={{ 
-            background: 'rgba(255,255,255,0.1)', 
-            border: '1px solid rgba(255,255,255,0.2)', 
-            padding: '12px', 
-            borderRadius: '50%', 
-            color: 'white', 
-            cursor: 'pointer',
-            backdropFilter: 'blur(5px)'
-          }}
+          style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', padding: '12px', borderRadius: '50%', color: 'white', cursor: 'pointer' }}
         >
           {muted ? <VolumeX size={24} /> : <Volume2 size={24} />}
         </button>
       </div>
-
-      {/* 底部交互区 */}
       <div style={{ position: 'absolute', bottom: '40px', width: '100%', textAlign: 'center', pointerEvents: 'auto' }}>
-        <label style={{ 
-          display: 'inline-flex', 
-          alignItems: 'center', 
-          gap: '8px', 
-          background: '#BAE6FD', 
-          color: '#020617', 
-          padding: '12px 24px', 
-          borderRadius: '30px', 
-          fontWeight: 'bold', 
-          cursor: 'pointer',
-          boxShadow: '0 4px 15px rgba(186,230,253,0.4)'
-        }}>
+        <label style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#BAE6FD', color: '#020617', padding: '12px 24px', borderRadius: '30px', fontWeight: 'bold', cursor: 'pointer' }}>
           <Upload size={20} />
           上传冰雪记忆
           <input type="file" style={{ display: 'none' }} accept="image/*" />
         </label>
-        <p style={{ color: 'rgba(186,230,253,0.8)', marginTop: '12px', fontSize: '14px', textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
-          点击音量开启圣诞旋律
-        </p>
       </div>
     </div>
   )
