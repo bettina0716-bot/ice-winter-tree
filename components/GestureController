@@ -1,15 +1,16 @@
 import { useThree } from '@react-three/fiber'
 import { useGesture } from '@use-gesture/react'
-import { useEffect } from 'react'
 
 export const GestureController = () => {
   const { camera, gl } = useThree()
-  const bind = useGesture({
+  
+  // 识别捏合和拖拽手势
+  useGesture({
     onPinch: ({ offset: [d] }) => {
       camera.position.z = Math.max(5, Math.min(25, 12 - d / 10))
     },
     onDrag: ({ offset: [x, y] }) => {
-      // 这里的逻辑会让相机随手指滑动旋转
+      camera.rotation.y += x / 1000
     }
   }, { target: gl.domElement })
 
