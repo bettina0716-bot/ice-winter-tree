@@ -19,7 +19,6 @@ export const UIOverlay = () => {
   return (
     <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 100 }}>
       <audio ref={audioRef} src="/audio.mp3" loop />
-      
       <div style={{ position: 'absolute', top: '24px', right: '24px', pointerEvents: 'auto' }}>
         <button 
           type="button" 
@@ -29,7 +28,6 @@ export const UIOverlay = () => {
           {muted ? <VolumeX size={24} /> : <Volume2 size={24} />}
         </button>
       </div>
-
       <div style={{ position: 'absolute', bottom: '48px', width: '100%', display: 'flex', justifyContent: 'center', pointerEvents: 'auto' }}>
         <label style={{ background: '#BAE6FD', color: '#020617', padding: '12px 24px', borderRadius: '999px', fontWeight: 'bold', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
           <Upload size={20} />
