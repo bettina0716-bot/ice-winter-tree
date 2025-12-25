@@ -20,18 +20,20 @@ export const UIOverlay = () => {
     <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 100 }}>
       <audio ref={audioRef} src="/audio.mp3" loop />
       
-      {/* 音乐按钮区域 */}
+      {/* 音乐按钮：去掉了所有复杂的逻辑嵌套 */}
       <div style={{ position: 'absolute', top: '24px', right: '24px', pointerEvents: 'auto' }}>
         <button 
           type="button"
           onClick={toggleAudio}
           style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', padding: '12px', borderRadius: '50%', color: 'white', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
         >
-          {muted ? <VolumeX size={24} /> : <Volume2 size={24} />}
+          {/* 这里是解决 Parse error 的终极方案：不再使用三元运算符嵌套 */}
+          {muted && <VolumeX size={24} />}
+          {!muted && <Volume2 size={24} />}
         </button>
       </div>
 
-      {/* 底部按钮区域 */}
+      {/* 底部上传按钮 */}
       <div style={{ position: 'absolute', bottom: '48px', width: '100%', display: 'flex', justifyContent: 'center', pointerEvents: 'auto' }}>
         <label style={{ background: '#BAE6FD', color: '#020617', padding: '12px 24px', borderRadius: '999px', fontWeight: 'bold', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
           <Upload size={20} />
