@@ -1,0 +1,28 @@
+import { useMemo } from 'react'
+import * as THREE from 'three'
+
+export const Polaroids = () => {
+  const photos = useMemo(() => Array.from({ length: 6 }, (_, i) => ({
+    position: [Math.sin(i * 1.2) * 2.2, i * 1.1 - 1.5, Math.cos(i * 1.2) * 2.2],
+    rotation: [0, -i * 1.2, 0]
+  })), [])
+
+  return (
+    <group>
+      {photos.map((p, i) => (
+        <group key={i} position={p.position as any} rotation={p.rotation as any}>
+          {/* 照片相框：冰白色 */}
+          <mesh>
+            <boxGeometry args={[0.8, 1, 0.05]} />
+            <meshStandardMaterial color="#F8FAFC" metalness={0.5} />
+          </mesh>
+          {/* 照片区域：暂时用灰色占位 */}
+          <mesh position={[0, 0.05, 0.03]}>
+            <planeGeometry args={[0.7, 0.7]} />
+            <meshStandardMaterial color="#CBD5E1" />
+          </mesh>
+        </group>
+      ))}
+    </group>
+  )
+}
