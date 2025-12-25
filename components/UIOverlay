@@ -5,11 +5,10 @@ export const UIOverlay = () => {
   const [muted, setMuted] = useState(true);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // 这里的逻辑与原作者一致：必须通过用户点击来触发音频播放
-  const handleToggleAudio = () => {
+  const toggleAudio = () => {
     if (audioRef.current) {
       if (muted) {
-        audioRef.current.play().catch(err => console.error("Playback failed:", err));
+        audioRef.current.play().catch(() => {});
       } else {
         audioRef.current.pause();
       }
@@ -19,59 +18,47 @@ export const UIOverlay = () => {
 
   return (
     <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 100 }}>
-      {/* 音频标签必须放在容器内部 */}
+      {/* 核心音频标签 */}
       <audio ref={audioRef} src="/audio.mp3" loop />
 
-      {/* 右上角按钮容器 */}
+      {/* 右上角控制按钮 */}
       <div style={{ position: 'absolute', top: '24px', right: '24px', pointerEvents: 'auto' }}>
-        <button
+        <button 
           type="button"
-          onClick={handleToggleAudio}
-          style={{
-            background: 'rgba(255, 255, 255, 0.1)',
-            backdropFilter: 'blur(8px)',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
-            borderRadius: '50%',
-            width: '48px',
-            height: '48px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+          onClick={toggleAudio}
+          style={{ 
+            background: 'rgba(255,255,255,0.1)', 
+            border: '1px solid rgba(255,255,255,0.2)', 
+            padding: '12px', 
+            borderRadius: '50%', 
+            color: 'white', 
             cursor: 'pointer',
-            color: 'white'
+            display: 'flex',
+            alignItems: 'center'
           }}
         >
           {muted ? <VolumeX size={24} /> : <Volume2 size={24} />}
         </button>
       </div>
 
-      {/* 底部交互容器 */}
-      <div style={{ position: 'absolute', bottom: '48px', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px', pointerEvents: 'auto' }}>
-        <label
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-            background: '#BAE6FD',
-            color: '#020617',
-            padding: '12px 24px',
-            borderRadius: '9999px',
-            fontWeight: '600',
-            cursor: 'pointer',
-            boxShadow: '0 10px 15px -3px rgba(186, 230, 253, 0.3)'
-          }}
-        >
+      {/* 底部上传区域 */}
+      <div style={{ position: 'absolute', bottom: '48px', width: '100%', display: 'flex', justifyContent: 'center', pointerEvents: 'auto' }}>
+        <label style={{ 
+          background: '#BAE6FD', 
+          color: '#020617', 
+          padding: '12px 24px', 
+          borderRadius: '999px', 
+          fontWeight: 'bold', 
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px'
+        }}>
           <Upload size={20} />
           <span>上传照片</span>
           <input type="file" style={{ display: 'none' }} accept="image/*" />
         </label>
-        
-        <p style={{ color: 'rgba(186, 230, 253, 0.7)', fontSize: '14px', letterSpacing: '0.05em' }}>
-          点击开启圣诞冰雪旋律
-        </p>
       </div>
     </div>
   );
 };
-
-export default UIOverlay;
