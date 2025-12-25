@@ -1,7 +1,7 @@
 import { Canvas } from '@react-three/fiber'
 import { Experience } from '../components/Experience'
 import { UIOverlay } from '../components/UIOverlay'
-import { EffectComposer, Bloom, Noise, Vignette } from '@react-three/postprocessing'
+import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing'
 
 function App() {
   return (
@@ -10,19 +10,19 @@ function App() {
       <Canvas 
         shadows 
         camera={{ position: [15, 15, 15], fov: 30 }}
-        gl={{ antialias: false, stencil: false, depth: true }}
+        gl={{ antialias: false, depth: true }}
       >
         <color attach="background" args={['#020617']} />
         <Experience />
         
+        {/* 让白色几何体变成冰蓝发光圣诞树的关键 */}
         <EffectComposer disableNormalPass>
           <Bloom 
             intensity={1.5} 
-            luminanceThreshold={0.2} 
+            luminanceThreshold={0.15} 
             mipmapBlur 
           />
-          <Noise opacity={0.05} />
-          <Vignette eskil={false} offset={0.1} darkness={1.1} />
+          <Vignette offset={0.1} darkness={1.1} />
         </EffectComposer>
       </Canvas>
     </div>
