@@ -1,7 +1,6 @@
 import { Canvas } from '@react-three/fiber'
 import { Experience } from '../components/Experience'
 import { UIOverlay } from '../components/UIOverlay'
-import { EffectComposer, Bloom } from '@react-three/postprocessing'
 
 function App() {
   return (
@@ -10,9 +9,6 @@ function App() {
       <Canvas shadows camera={{ position: [15, 15, 15], fov: 30 }}>
         <color attach="background" args={['#020617']} />
         <Experience />
-        <EffectComposer>
-          <Bloom intensity={1.5} luminanceThreshold={0.2} mipmapBlur />
-        </EffectComposer>
       </Canvas>
     </div>
   )
