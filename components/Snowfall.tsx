@@ -1,16 +1,17 @@
 import { Points, PointMaterial } from '@react-three/drei'
-import { useRef, useState } from 'react'
+import { useRef, useMemo } from 'react'
 import { useFrame } from '@react-three/fiber'
 
 export const Snowfall = () => {
   const ref = useRef<any>()
-  const [sphere] = useState(() => {
+  
+  const sphere = useMemo(() => {
     const arr = new Float32Array(3000)
     for (let i = 0; i < 3000; i++) {
       arr[i] = (Math.random() - 0.5) * 20
     }
     return arr
-  })
+  }, [])
 
   useFrame((state, delta) => {
     if (ref.current) {
