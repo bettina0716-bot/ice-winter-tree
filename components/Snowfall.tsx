@@ -4,7 +4,6 @@ import { useFrame } from '@react-three/fiber'
 
 export const Snowfall = () => {
   const ref = useRef<any>()
-  
   const sphere = useMemo(() => {
     const arr = new Float32Array(3000)
     for (let i = 0; i < 3000; i++) {
@@ -16,21 +15,18 @@ export const Snowfall = () => {
   useFrame((state, delta) => {
     if (ref.current) {
       ref.current.rotation.y += delta / 10
-      ref.current.rotation.x += delta / 15
     }
   })
 
   return (
-    <group rotation={[0, 0, Math.PI / 4]}>
-      <Points ref={ref} positions={sphere} stride={3} frustumCulled={false}>
-        <PointMaterial
-          transparent
-          color="#ffffff"
-          size={0.05}
-          sizeAttenuation={true}
-          depthWrite={false}
-        />
-      </Points>
-    </group>
+    <Points ref={ref} positions={sphere} stride={3} frustumCulled={false}>
+      <PointMaterial
+        transparent
+        color="#ffffff"
+        size={0.05}
+        sizeAttenuation={true}
+        depthWrite={false}
+      />
+    </Points>
   )
 }
