@@ -31,7 +31,7 @@ export const UIOverlay = () => {
       <div style={{ position: 'absolute', bottom: '48px', width: '100%', display: 'flex', justifyContent: 'center', pointerEvents: 'auto' }}>
         <label style={{ background: '#BAE6FD', color: '#020617', padding: '12px 24px', borderRadius: '999px', fontWeight: 'bold', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
           <Upload size={20} />
-          <span>Upload</span>
+          <span>Upload Image</span>
           <input type="file" style={{ display: 'none' }} accept="image/*" />
         </label>
       </div>
