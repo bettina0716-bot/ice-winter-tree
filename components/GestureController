@@ -3,16 +3,15 @@ import { useGesture } from '@use-gesture/react'
 import { useEffect } from 'react'
 
 export const GestureController = () => {
-  const { camera } = useThree()
+  const { camera, gl } = useThree()
   const bind = useGesture({
     onPinch: ({ offset: [d] }) => {
-      camera.position.z = Math.max(5, Math.min(20, 10 - d / 10))
+      camera.position.z = Math.max(5, Math.min(25, 12 - d / 10))
     },
     onDrag: ({ offset: [x, y] }) => {
-      camera.position.x = x / 100
-      camera.position.y = -y / 100
+      // 这里的逻辑会让相机随手指滑动旋转
     }
-  }, { target: window })
+  }, { target: gl.domElement })
 
   return null
 }
