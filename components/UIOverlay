@@ -5,27 +5,36 @@ export const UIOverlay = () => {
   const [muted, setMuted] = useState(true);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
+  const toggleAudio = () => {
+    if (audioRef.current) {
+      if (muted) {
+        audioRef.current.play().catch(() => {});
+      } else {
+        audioRef.current.pause();
+      }
+      setMuted(!muted);
+    }
+  };
+
+  // 这里的逻辑分离是解决 Parse error 的关键
+  const Icon = muted ? VolumeX : Volume2;
+
   return (
     <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 100 }}>
       <audio ref={audioRef} src="/audio.mp3" loop />
       
-      {/* 音乐按钮：完全按照原作者的行内样式写法 */}
+      {/* 右上角按钮 - 结构简化，严禁任何多余嵌套 */}
       <div style={{ position: 'absolute', top: '24px', right: '24px', pointerEvents: 'auto' }}>
         <button 
-          onClick={() => {
-            if (audioRef.current) {
-              if (muted) audioRef.current.play();
-              else audioRef.current.pause();
-              setMuted(!muted);
-            }
-          }}
-          style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', padding: '12px', borderRadius: '50%', color: 'white', cursor: 'pointer' }}
+          type="button"
+          onClick={toggleAudio}
+          style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', padding: '12px', borderRadius: '50%', color: 'white', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
         >
-          {muted ? <VolumeX size={24} /> : <Volume2 size={24} />}
+          <Icon size={24} />
         </button>
       </div>
 
-      {/* 上传按钮：完全按照原作者的行内样式写法 */}
+      {/* 底部上传区 */}
       <div style={{ position: 'absolute', bottom: '48px', width: '100%', display: 'flex', justifyContent: 'center', pointerEvents: 'auto' }}>
         <label style={{ background: '#BAE6FD', color: '#020617', padding: '12px 24px', borderRadius: '999px', fontWeight: 'bold', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
           <Upload size={20} />
